@@ -1,18 +1,44 @@
+import java.util.Scanner;
 public class SopaDeLLetres {
     public static void main(String[] args) {
-        System.out.println("test");
-        /*
-        (Fer Funcio main) -Alex
-        >demanar lletres (min max 100) -Iker (demanarLletres)
-        >convertir-les a matriu 10x10 -Marc (lletresAMatriu)
-        >imprimir matriu -Adrian (ImprimirMatriu)
-        >solicitar paraules while (!true)
-        -->descartar si la paraula introduida < 3 caracters i > 10 caracters
-        -->detectar si la paraula introduida es troba (horitzontal)
-        -->detectar si la paraula introduida es troba (vertical)
-        -->pintar paraules de vermell quan son trobades
-        -->identificar si les 5 paraules s'han trobat
-        >while (!true) s'acaba*/
+        Scanner input=new Scanner(System.in);
+        char[][] SopaDeLetras= convertirMatriz();
+    }
+
+
+
+
+    /**
+     * Scanner para que el usuario introduzca Su String donde aparezcan las palabras,
+     * lo he convertido en una matriz para imprimirla por pantalla
+     * @return null
+     */
+    public static char[][] convertirMatriz() {
+        Scanner input=new Scanner(System.in);
+        int posicion = 0;
+        String StringNombre= input.nextLine();
+        char[]sopa=StringNombre.toCharArray();
+        char[][] matriz = new char[10][10];
+
+
+
+
+
+
+
+
+        for (int fila = 0; fila < 10; fila++) {
+            for (int col = 0; col < 10; col++) {
+                matriz[fila][col] = sopa[posicion];
+                posicion++;
+                System.out.print(matriz[fila][col]+" ");
+            }
+            System.out.println();
+        }
+        return null;
+
+
+
 
     }
 }
