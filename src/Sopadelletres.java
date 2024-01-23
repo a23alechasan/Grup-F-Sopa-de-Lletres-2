@@ -39,11 +39,8 @@ public class Sopadelletres {
             String palabra = sc.nextLine();
 
             if (palabra.length() >= 3 && palabra.length() <= 10) {
-                int posicion = Buscarpalabra(matriu, palabra);
-                if (posicion != null) {
+                if (buscarPalabra(matriu, palabra)) {
                     palabrasEncontradas++;
-                    ImprimMatriuEnSopa(matriu, palabra, posicion);
-                    mostrarMatriz(matriu);
                     System.out.println("Paraules trobades: " + palabrasEncontradas);
                 } else {
                     System.out.println("La paraula " + palabra + " no està a la sopa de lletres.");
@@ -52,57 +49,44 @@ public class Sopadelletres {
                 System.out.println("La longitud de la paraula ha de ser entre 3 i 10 caràcters.");
             }
         }
+
         System.out.println("Totes les paraules s'han trobat");
         sc.close();
     }
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
-        static void Buscarpalabra ( char[][] matriu, String palabra){
+    static boolean buscarPalabra ( char[][] matriu, String palabra){
 
-            for (int i = 0; i < matriu.length; i++) {
-                String fila = new String(matriu[i]);
-                if (fila.contains(palabra)) {
-                    System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la fila " + i);
-                    return;
-                }
-                for (int j = 0; j < matriu[0].length; j++) {
-                    String columna = "";
-                    for (int k = 0; k < matriu.length; k++) {
-                        columna += matriu[k][j];
-                    }
-                    if (columna.contains(palabra)) {
-                        System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la columa " + j);
-                        return ;
-                    }
-                }
+        for (int i = 0; i < matriu.length; i++) {
+            String fila = new String(matriu[i]);
+            if (fila.contains(palabra)) {
+                System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la fila " + i);
+                return true;
             }
-            System.out.println("La palabra " + palabra + " no esta en la sopa de letras. ");
-        }
-
-        static void ImprimMatriuEnSopa ( char [][] matriu , String palabra, int [] posicion ) {
-            int fila = posicion[0];
-            int columna = posicion[1];
-
-            for (int i = 0; i < palabra.length(); i++) {
-                matriu[fila][columna] = Character.toUpperCase(palabra.charAt(i));
-                if (fila < matriu.length - 1 && columna < matriu[0].length - 1) {
-                    fila++;
-                    columna++;
-                    System.out.println(matriu[fila][columna]);
+            for (int j = 0; j < matriu[0].length; j++) {
+                String columna = "";
+                for (int k = 0; k < matriu.length; k++) {
+                    columna += matriu[k][j];
                 }
-                System.out.println(); {
-
+                if (columna.contains(palabra)) {
+                    System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la columa " + j);
+                    return true;
                 }
             }
         }
-        static void mostrarMatriz ( char[][] matriu){
+        return false;
+    }
 
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    System.out.print(matriu[i][j] + " ");
-                }
-                System.out.println();
+    static void mostrarMatriz ( char[][] matriu){
+
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(matriu[i][j] + " ");
             }
+            System.out.println();
         }
     }
+}
+
