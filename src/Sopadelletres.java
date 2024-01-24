@@ -2,21 +2,7 @@ import java.util.Scanner;
 
 public class Sopadelletres {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        /*
-        (Fer Funcio main) -Alex
-        >demanar lletres (min max 100) -Iker (demanarLletres)
-        >convertir-les a matriu 10x10 -Marc (lletresAMatriu)
-        >imprimir matriu -Adrian (ImprimirMatriu)
-        >solicitar paraules while (!true)
-        -->descartar si la paraula introduida < 3 caracters i > 10 caracters
-        -->detectar si la paraula introduida es troba (horitzontal)
-        -->detectar si la paraula introduida es troba (vertical)
-        -->pintar paraules de vermell quan son trobades
-        -->identificar si les 5 paraules s'han trobat
-        >while (!true) s'acaba*/
-
 
         char[][] matriu = {
                 {'N', 'A', 'S', 'Q', 'Y', 'C', 'C', 'S', 'O', 'Z'},
@@ -36,7 +22,7 @@ public class Sopadelletres {
 
         while (palabrasEncontradas < 5) {
             System.out.println("Escriu una paraula :");
-            String palabra = sc.nextLine();
+            String palabra = sc.nextLine().toUpperCase();  // Convertimos a mayúsculas para ignorar mayúsculas/minúsculas
 
             if (palabra.length() >= 3 && palabra.length() <= 10) {
                 if (buscarPalabra(matriu, palabra)) {
@@ -50,6 +36,7 @@ public class Sopadelletres {
             }
         }
 
+        pintarEnRojo(matriu);
         System.out.println("Totes les paraules s'han trobat");
         sc.close();
     }
@@ -57,57 +44,78 @@ public class Sopadelletres {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
 
-    /**
-     * Aquesta funció busca les paraules dins de la matriu, i si estan,
-     * imprimeix un missatge amb la paraula escrita en vermell i indicant la seva posició dins de la matriu.
-     * @param matriu
-     * @param palabra
-     * @return
-     */
-    static boolean buscarPalabra ( char[][] matriu, String palabra){
-
+    static boolean buscarPalabra(char[][] matriu, String palabra) {
         for (int i = 0; i < matriu.length; i++) {
-            String fila = new String(matriu[i]);
-            if (fila.contains(palabra)) {
-                System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la fila " + i);
-                return true;
-            }
-            for (int j = 0; j < matriu[0].length; j++) {
-                String columna = "";
-                for (int k = 0; k < matriu.length; k++) {
-                    columna += matriu[k][j];
+            for (int j = 0; j < matriu[0].length - palabra.length() + 1; j++) {
+                boolean encontrada = true;
+                for (int k = 0; k < palabra.length(); k++) {
+                    if (matriu[i][j + k] != palabra.charAt(k)) {
+                        encontrada = false;
+                        break;
+                    }
                 }
-                if (columna.contains(palabra)) {
-                    System.out.println("La palabra " + (ANSI_RED + imprimirEnRojo(matriu[][j]) + ANSI_RESET) + " " + "esta en la columa " + j);
+                if (encontrada) {
+                    marcarPalabraEncontradaHorizontal(matriu, i, j, palabra.length());
                     return true;
                 }
             }
         }
+
+        for (int j = 0; j < matriu[0].length; j++) {
+            for (int i = 0; i < matriu.length - palabra.length() + 1; i++) {
+                boolean encontrada = true;
+                for (int k = 0; k < palabra.length(); k++) {
+                    if (matriu[i + k][j] != palabra.charAt(k)) {
+                        encontrada = false;
+                        break;
+                    }
+                }
+                if (encontrada) {
+                    marcarPalabraEncontradaVertical(matriu, i, j, palabra.length());
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
-    /**
-     * Aquesta funció imprimeix la matriu a consola.
-     * @param matriu
-     */
-    static void mostrarMatriz ( char[][] matriu){
+    static void marcarPalabraEncontradaHorizontal(char[][] matriu, int fila, int columna, int longitud) {
+        for (int k = 0; k < longitud; k++) {
+            matriu[fila][columna + k] = Character.toUpperCase(matriu[fila][columna + k]);  // Marcamos la letra como encontrada
+        }
+    }
 
+    static void marcarPalabraEncontradaVertical(char[][] matriu, int fila, int columna, int longitud) {
+        for (int k = 0; k < longitud; k++) {
+            matriu[fila + k][columna] = Character.toUpperCase(matriu[fila + k][columna]);  // Marcamos la letra como encontrada
+        }
+    }
 
+    static void mostrarMatriz(char[][] matriu) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                System.out.print(matriu[i][j] + " " );
+                System.out.print(matriu[i][j] + " ");
             }
             System.out.println();
         }
     }
 
-    static void imprimirEnRojo (boolean[][] palabra , char [][] matriu) {
-        for (int i = 0; i < matriu.length; i++) {
-            for (int j = 0; j < matriu[i].length; j++) {
-                if (palabra[i][j]);
-                System.out.println(ANSI_RED + palabra[i][j] + ANSI_RESET);
+    static void pintarEnRojo(char[][] matriu) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (Character.isUpperCase(matriu[i][j])) {
+                    System.out.print(ANSI_RED + matriu[i][j] + ANSI_RESET + " ");
+                } else {
+                    System.out.print(matriu[i][j] + " ");
+                }
             }
+            System.out.println();
         }
     }
 }
+
+
+
+
 
