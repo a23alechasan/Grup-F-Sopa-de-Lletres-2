@@ -22,7 +22,7 @@ public class Sopadelletres {
 
         while (palabrasEncontradas < 5) {
             System.out.println("Escriu una paraula :");
-            String palabra = sc.nextLine().toUpperCase();  // Convertimos a mayúsculas para ignorar mayúsculas/minúsculas
+            String palabra = sc.nextLine().toUpperCase();
 
             if (palabra.length() >= 3 && palabra.length() <= 10) {
                 if (buscarPalabra(matriu, palabra)) {
@@ -77,18 +77,41 @@ public class Sopadelletres {
             }
         }
 
+        // Corregir lógica para la dirección diagonal
+        for (int i = 0; i < matriu.length - palabra.length() + 1; i++) {
+            for (int j = 0; j < matriu[0].length - palabra.length() + 1; j++) {
+                boolean encontrada = true;
+                for (int k = 0; k < palabra.length(); k++) {
+                    if (matriu[i + k][j + k] != palabra.charAt(k)) {
+                        encontrada = false;
+                        break;
+                    }
+                }
+                if (encontrada) {
+                    marcarPalabraEncontradaDiagonal(matriu, i, j, palabra.length());
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
     static void marcarPalabraEncontradaHorizontal(char[][] matriu, int fila, int columna, int longitud) {
         for (int k = 0; k < longitud; k++) {
-            matriu[fila][columna + k] = Character.toUpperCase(matriu[fila][columna + k]);  // Marcamos la letra como encontrada
+            matriu[fila][columna + k] = Character.toLowerCase(matriu[fila][columna + k]);
         }
     }
 
     static void marcarPalabraEncontradaVertical(char[][] matriu, int fila, int columna, int longitud) {
         for (int k = 0; k < longitud; k++) {
-            matriu[fila + k][columna] = Character.toUpperCase(matriu[fila + k][columna]);  // Marcamos la letra como encontrada
+            matriu[fila + k][columna] = Character.toLowerCase(matriu[fila + k][columna]);
+        }
+    }
+
+    static void marcarPalabraEncontradaDiagonal(char[][] matriu, int fila, int columna, int longitud) {
+        for (int k = 0; k < longitud; k++) {
+            matriu[fila + k][columna + k] = Character.toUpperCase(matriu[fila + k][columna + k]);
         }
     }
 
@@ -104,7 +127,7 @@ public class Sopadelletres {
     static void pintarEnRojo(char[][] matriu) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                if (Character.isUpperCase(matriu[i][j])) {
+                if (Character.isLowerCase(matriu[i][j])) {
                     System.out.print(ANSI_RED + matriu[i][j] + ANSI_RESET + " ");
                 } else {
                     System.out.print(matriu[i][j] + " ");
@@ -114,6 +137,9 @@ public class Sopadelletres {
         }
     }
 }
+
+
+
 
 
 
