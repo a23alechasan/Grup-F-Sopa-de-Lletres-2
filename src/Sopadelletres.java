@@ -46,7 +46,7 @@ public class Sopadelletres {
                     System.out.println("La paraula " + palabra + " no està a la sopa de lletres.");
                 }
             } else {
-                System.out.println("La longitud de la paraula ha de ser entre 3 i 10 caràcters.");
+                System.out.println("La longitud de la paraula ha de ser entre 3 i 10 lletras.");
             }
         }
 
@@ -56,6 +56,14 @@ public class Sopadelletres {
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
+
+    /**
+     * Aquesta funció busca les paraules dins de la matriu, i si estan,
+     * imprimeix un missatge amb la paraula escrita en vermell i indicant la seva posició dins de la matriu.
+     * @param matriu
+     * @param palabra
+     * @return
+     */
     static boolean buscarPalabra ( char[][] matriu, String palabra){
 
         for (int i = 0; i < matriu.length; i++) {
@@ -78,6 +86,10 @@ public class Sopadelletres {
         return false;
     }
 
+    /**
+     * Aquesta funció imprimeix la matriu a consola.
+     * @param matriu
+     */
     static void mostrarMatriz ( char[][] matriu){
 
 
