@@ -78,7 +78,7 @@ public class Sopadelletres {
                     columna += matriu[k][j];
                 }
                 if (columna.contains(palabra)) {
-                    System.out.println("La palabra " + (ANSI_RED + palabra + ANSI_RESET) + " " + "esta en la columa " + j);
+                    System.out.println("La palabra " + (ANSI_RED + imprimirEnRojo(matriu[][j]) + ANSI_RESET) + " " + "esta en la columa " + j);
                     return true;
                 }
             }
@@ -95,9 +95,18 @@ public class Sopadelletres {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                System.out.print(matriu[i][j] + " ");
+                System.out.print(matriu[i][j] + " " );
             }
             System.out.println();
+        }
+    }
+
+    static void imprimirEnRojo (boolean[][] palabra , char [][] matriu) {
+        for (int i = 0; i < matriu.length; i++) {
+            for (int j = 0; j < matriu[i].length; j++) {
+                if (palabra[i][j]);
+                System.out.println(ANSI_RED + palabra[i][j] + ANSI_RESET);
+            }
         }
     }
 }
