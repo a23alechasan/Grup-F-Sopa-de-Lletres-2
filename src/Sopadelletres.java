@@ -47,8 +47,8 @@ public class Sopadelletres {
     static boolean buscarPalabra(char[][] matriu, String palabra) {
         for (int i = 0; i < matriu.length; i++) {
             for (int j = 0; j < matriu[0].length; j++) {
-                if (buscarPalabraEnDireccion(matriu, palabra, i, j, 0, 1) ||
-                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 0)) {
+                if ((buscarPalabraEnDireccion(matriu, palabra, i, j, 0, 1) ||
+                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 0))) {
                     return true;
                 }
             }
@@ -64,7 +64,7 @@ public class Sopadelletres {
         if (nuevaFila >= 0 && nuevaFila < matriu.length && nuevaColumna >= 0 && nuevaColumna < matriu[0].length) {
             for (int k = 0; k < longitud; k++) {
                 char letra = matriu[fila + k * dirFila][columna + k * dirColumna];
-                if (Character.isUpperCase(letra) && letra != palabra.charAt(k)) {
+                if (letra != palabra.charAt(k)) {
                     return false;
                 }
             }
@@ -94,7 +94,7 @@ public class Sopadelletres {
                 if (Character.isLowerCase(c)) {
                     System.out.print(ANSI_RED + Character.toUpperCase(c) + ANSI_RESET + " ");
                 } else {
-                    System.out.print(ANSI_RED + c + ANSI_RESET + " ");
+                    System.out.print(c + " ");
                 }
             }
             System.out.println();
@@ -102,14 +102,3 @@ public class Sopadelletres {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
