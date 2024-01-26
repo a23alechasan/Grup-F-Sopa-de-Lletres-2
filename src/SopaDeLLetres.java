@@ -91,7 +91,17 @@ public class SopaDeLLetres {
         for (int x = 0; x < matriu.length; x++){
             for (int y = 0; y < matriu.length; y++){
                 if (matriu[x][y] == lletresParaula[0]){
-                    for (int i = 0; )
+                    int contador = 0;
+                    for (int i = 0; i < lletresParaula.length; i++){
+                        if (matriu[x+i][y] == lletresParaula[i]){
+                            contador++;
+                        }
+                    }
+                    if (contador == lletresParaula.length){
+                        for (int i = 0; i < lletresParaula.length; i++){
+                            matriu[x + i][y] = Character.toLowerCase(matriu[x + i][y]);
+                        }
+                    }
                 }
             }
         }
