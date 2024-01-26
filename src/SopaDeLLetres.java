@@ -40,27 +40,4 @@ public class SopaDeLLetres {
     public  static boolean esValida(char[] lletres){
         return lletres.length >= 3 && lletres.length <= 10;
     }
-    public static int[][] detectarHoritzontal(char[][] sopa, char[] paraula){
-        int[][] coordenades = new int[1][1];
-        for (int x = 0; x < 10; x++){
-            for (int y = 0; y < 10; y++){
-                int contador = 0;
-                if (sopa[x][y] == paraula[0]){
-                    for (int i = paraula.length; i > 0; i--){
-                        if (sopa[x+i][y] == paraula[i-1]){
-                            contador++;
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                    if (contador == paraula.length){
-                        coordenades[0][0] = sopa[x][y];
-                        coordenades[1][1] = sopa[x+paraula.length][y];
-                    }
-                }
-            }
-        }
-        return coordenades;
-    }
 }
