@@ -20,7 +20,6 @@ public class SopaDeLLetres {
                 System.out.println("No hi han 100 lletres, torna a provar");
                 lletres = input.nextLine();
             }
-
         }
         return convertirLletresMatriu(lletres);
     }
@@ -40,10 +39,8 @@ public class SopaDeLLetres {
                 matriu[f][c] = lletres.charAt(index++);
             }
         }
-
         return matriu;
     }
-
     /**
      * Show the matrix in the sceen
      * @param matriu char to show
