@@ -21,7 +21,7 @@ class testConvertirMatriu {
             }
         }
     }
-    /*El */
+    /*El rquesit de 10*10 no es cumpleix perque no hi han 100 paraules*/
     @org.junit.jupiter.api.Test
     void testConvertirLletresMatriuRequesitNoCumplit() {
         String lletres = "NASQYCCSOZMRWOIHZNFRZUIFEUWBYTPBFPCSFQQIPYTHONBGVIJPDDBTNEVWGGESOYPYTUFYUILECHAVVBZSHXTAJTDZXLY";
