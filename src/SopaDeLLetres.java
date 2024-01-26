@@ -75,7 +75,12 @@ public class SopaDeLLetres {
             System.out.println();
         }
     }
-
+    /**
+     * This function searches if the words written are found in the matrix.
+     * @param matriu definex the matrix.
+     * @param palabra defines the word the funciont tries to search.
+     * @return it returns true is the word is found within the matrix.
+     */
     static boolean buscarPalabra(char[][] matriu, String palabra) {
         for (int i = 0; i < matriu.length; i++) {
             for (int j = 0; j < matriu[0].length; j++) {
@@ -89,6 +94,17 @@ public class SopaDeLLetres {
         }
         return false;
     }
+    /**
+     * This function defines the lenght of the word,and the starting row and colum the words are at plus the direction in which they are,also searches if the words are within the confines of the matrix,
+     * if they are it proceeds to check character by character to check if the word is in the matrix in the right position.
+     * @param matriu defines the matrix in which you look for the words.
+     * @param palabra is the word to search.
+     * @param fila defines the starting row of the word.
+     * @param columna defines the starting column of the word.
+     * @param dirFila indicates the direction in which you want to look for in the row.
+     * @param dirColumna indicates the direction in which you want to look for in the column.
+     * @return it returns false if the word is not found in the right position, and true if the word is found, and marks the found chars of the word in lower case.
+     */
     static boolean buscarPalabraEnDireccion(char[][] matriu, String palabra, int fila, int columna, int dirFila, int dirColumna) {
         int longitud = palabra.length();
         int nuevaFila = fila + (longitud - 1) * dirFila;
@@ -110,6 +126,10 @@ public class SopaDeLLetres {
 
         return false;
     }
+    /**
+     * This function pritns the matrix with the found character printed in red.
+     * @param matriu determines the matrix.
+     */
     static void pintarEnRojo(char[][] matriu) {
         System.out.println("Matriz amb les paraules marcades en vermell:");
         for (int i = 0; i < 10; i++) {
