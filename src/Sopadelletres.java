@@ -26,22 +26,59 @@ public class Sopadelletres {
 
         while (palabrasEncontradas < 5) {
             System.out.println("Escriu una paraula :");
-            String palabra = sc.nextLine();
+            String palabra = sc.nextLine().toUpperCase();
 
-            if (palabra.length() >= 3 && palabra.length() <= 10) {
+            if (palabra.length() > 3 && palabra.length() <= 10) {
                 if (buscarPalabra(matriu, palabra)) {
                     palabrasEncontradas++;
                     System.out.println("Paraules trobades: " + palabrasEncontradas);
+                    pintarEnRojo(matriu);
                 } else {
                     System.out.println("La paraula " + palabra + " no està a la sopa de lletres.");
                 }
             } else {
-                System.out.println("La longitud de la paraula ha de ser entre 3 i 10 caràcters.");
+                System.out.println("La longitud de la paraula ha de ser entre 3 i 10 lletras.");
             }
         }
 
         System.out.println("Totes les paraules s'han trobat");
         sc.close();
+    }
+
+    static boolean buscarPalabra(char[][] matriu, String palabra) {
+        for (int i = 0; i < matriu.length; i++) {
+            for (int j = 0; j < matriu[0].length; j++) {
+                if (buscarPalabraEnDireccion(matriu, palabra, i, j, 0, 1) ||
+                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 0) ||
+                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 1) ||
+                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, -1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static boolean buscarPalabraEnDireccion(char[][] matriu, String palabra, int fila, int columna, int dirFila, int dirColumna) {
+        int longitud = palabra.length();
+        int nuevaFila = fila + (longitud - 1) * dirFila;
+        int nuevaColumna = columna + (longitud - 1) * dirColumna;
+
+        if (nuevaFila >= 0 && nuevaFila < matriu.length && nuevaColumna >= 0 && nuevaColumna < matriu[0].length) {
+            for (int k = 0; k < longitud; k++) {
+                char letra = matriu[fila + k * dirFila][columna + k * dirColumna];
+                if (Character.isUpperCase(letra) && letra != palabra.charAt(k)) {
+                    return false;
+                }
+            }
+
+            for (int k = 0; k < longitud; k++) {
+                matriu[fila + k * dirFila][columna + k * dirColumna] = Character.toLowerCase(matriu[fila + k * dirFila][columna + k * dirColumna]);
+            }
+            return true;
+        }
+
+        return false;
     }
 
     static void mostrarMatriz(char[][] matriu) {
@@ -53,54 +90,19 @@ public class Sopadelletres {
         }
     }
 
-    static boolean buscarPalabra(char[][] matriu, String palabra) {
-        palabra = palabra.toUpperCase();
-
-        // Busca la palabra horizontal en esta parte //
+    static void pintarEnRojo(char[][] matriu) {
+        System.out.println("Matriz amb les paraules marcades en vermell:");
         for (int i = 0; i < 10; i++) {
-            for (int j = 0; j <= 10 - palabra.length(); j++) {
-                boolean encontrada = true;
-                for (int k = 0; k < palabra.length(); k++) {
-                    if (matriu[i][j + k] != palabra.charAt(k) && matriu[i][j + k] != ' ') {
-                        encontrada = false;
-                        break;
-                    }
-                }
-                if (encontrada) {
-                    // Marcar la palabra en la matriz cambiando las letras a rojo //
-                    for (int k = 0; k < palabra.length(); k++) {
-                        if (matriu[i][j + k] != ' ') {
-                            matriu[i][j + k] = palabra.charAt(k);
-                        }
-                    }
-                    return true;
-                }
-            }
-        }
-
-        // Buscar la palabra vertial en la matriu //
-        for (int i = 0; i <= 10 - palabra.length(); i++) {
             for (int j = 0; j < 10; j++) {
-                boolean encontrada = true;
-                for (int k = 0; k < palabra.length(); k++) {
-                    if (matriu[i + k][j] != palabra.charAt(k) && matriu[i + k][j] != ' ') {
-                        encontrada = false;
-                        break;
-                    }
-                }
-                if (encontrada) {
-                    // Marcar la palabra en la matriz cambiando las letras a rojo //
-                    for (int k = 0; k < palabra.length(); k++) {
-                        if (matriu[i + k][j] != ' ') {
-                            matriu[i + k][j] = palabra.charAt(k);
-                        }
-                    }
-                    return true;
+                char c = matriu[i][j];
+                if (Character.isLowerCase(c)) {
+                    System.out.print(ANSI_RED + Character.toUpperCase(c) + ANSI_RESET + " ");
+                } else {
+                    System.out.print(c + " ");
                 }
             }
+            System.out.println();
         }
-
-        return false;
+        System.out.println();
     }
 }
-
