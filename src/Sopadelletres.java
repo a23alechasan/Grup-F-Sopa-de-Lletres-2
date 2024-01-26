@@ -45,13 +45,17 @@ public class Sopadelletres {
         sc.close();
     }
 
+    /**
+     * This function searches if the words written are found in the matrix.
+     * @param matriu definex the matrix.
+     * @param palabra defines the word the funciont tries to search.
+     * @return it returns true is the word is found within the matrix.
+     */
     static boolean buscarPalabra(char[][] matriu, String palabra) {
         for (int i = 0; i < matriu.length; i++) {
             for (int j = 0; j < matriu[0].length; j++) {
                 if (buscarPalabraEnDireccion(matriu, palabra, i, j, 0, 1) ||
-                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 0) ||
-                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 1) ||
-                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, -1)) {
+                        buscarPalabraEnDireccion(matriu, palabra, i, j, 1, 0)) {
                     return true;
                 }
             }
@@ -59,6 +63,17 @@ public class Sopadelletres {
         return false;
     }
 
+    /**
+     * This function defines the lenght of the word,and the starting row and colum the words are at plus the direction in which they are,also searches if the words are within the confines of the matrix,
+     * if they are it proceeds to check character by character to check if the word is in the matrix in the right position.
+     * @param matriu defines the matrix in which you look for the words.
+     * @param palabra is the word to search.
+     * @param fila defines the starting row of the word.
+     * @param columna defines the starting column of the word.
+     * @param dirFila indicates the direction in which you want to look for in the row.
+     * @param dirColumna indicates the direction in which you want to look for in the column.
+     * @return it returns false if the word is not found in the right position, and true if the word is found, and marks the found chars of the word in lower case.
+     */
     static boolean buscarPalabraEnDireccion(char[][] matriu, String palabra, int fila, int columna, int dirFila, int dirColumna) {
         int longitud = palabra.length();
         int nuevaFila = fila + (longitud - 1) * dirFila;
@@ -68,6 +83,9 @@ public class Sopadelletres {
             for (int k = 0; k < longitud; k++) {
                 char letra = matriu[fila + k * dirFila][columna + k * dirColumna];
                 if (Character.isUpperCase(letra) && letra != palabra.charAt(k)) {
+                    for (int l = 0; l <= k; l++) {
+                        matriu[fila + l * dirFila][columna + l * dirColumna] = Character.toUpperCase(matriu[fila + l * dirFila][columna + l * dirColumna]);
+                    }
                     return false;
                 }
             }
@@ -81,6 +99,12 @@ public class Sopadelletres {
         return false;
     }
 
+
+
+    /**
+     * This funtion prints the matrix on the console.
+     * @param matriu defines the matrix.
+     */
     static void mostrarMatriz(char[][] matriu) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -90,8 +114,11 @@ public class Sopadelletres {
         }
     }
 
+    /**
+     * This function pritns the matrix with the found character printed in red.
+     * @param matriu determines the matrix.
+     */
     static void pintarEnRojo(char[][] matriu) {
-        System.out.println("Matriz amb les paraules marcades en vermell:");
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 char c = matriu[i][j];
@@ -103,6 +130,5 @@ public class Sopadelletres {
             }
             System.out.println();
         }
-        System.out.println();
     }
 }
