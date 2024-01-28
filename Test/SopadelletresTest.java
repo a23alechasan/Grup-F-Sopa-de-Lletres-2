@@ -1,15 +1,13 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SopadelletresTest {
 
     @Test
     void testPintarEnRojo() {
-        // Caso de prueba 1: Matriz vacía
+
         char[][] matrizVacia = new char[10][10];
         pintarEnRojo(matrizVacia);
 
-        // Caso de prueba 2: Matriz con letras minúsculas
         char[][] matrizMinusculas = {
                 {'a', 'B', 'c', 'D', 'e', 'F', 'g', 'H', 'i', 'J'},
                 {'K', 'l', 'M', 'n', 'O', 'p', 'Q', 'r', 'S', 't'},
@@ -24,7 +22,6 @@ class SopadelletresTest {
         };
         pintarEnRojo(matrizMinusculas);
 
-        // Caso de prueba 3: Matriz con letras mayúsculas
         char[][] matrizMayusculas = {
                 {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
                 {'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'},
