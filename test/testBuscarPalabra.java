@@ -11,12 +11,10 @@ class testBuscarPalabra {
                 {'i', 'j', 'k', 'l'},
                 {'m', 'n', 'o', 'p'}
         };
-        assertTrue(buscarPalabra(matriu, "abc"));
-        assertTrue(buscarPalabra(matriu, "aeim"));
-        assertTrue(buscarPalabra(matriu, "afk"));
-        assertFalse(buscarPalabra(matriu, "eeee"));
-        assertFalse(buscarPalabra(matriu, "xyz"));
+        assertTrue(SopaDeLLetres.buscarPalabra(matriu, "abc"));
+        assertTrue(SopaDeLLetres.buscarPalabra(matriu, "aeim"));
+        assertTrue(SopaDeLLetres.buscarPalabra(matriu, "afk"));
+        assertFalse(SopaDeLLetres.buscarPalabra(matriu, "eeee"));
+        assertFalse(SopaDeLLetres.buscarPalabra(matriu, "xyz"));
     }
-
-
 }
